@@ -1,3 +1,4 @@
+# LIFESPAN: permanent (the repo's proof runner, rerun whenever the workflow changes)
 """Prove the onboarding workflow against the running stack (docker compose up -d --build).
 
 Everything here goes through n8n's real webhooks and the real Mailpit inbox. Time is moved with the desk clock

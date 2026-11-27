@@ -202,7 +202,7 @@ def main() -> int:
     wait_for("completion emails", lambda: [m for m in mails_to(a_email) if m["Subject"].startswith("You are all set")] and [m for m in mails_to(team) if m["Subject"].startswith("Onboarding complete")])
     count_before = len(mails_to(a_email))
     skip_days(10)
-    time.sleep(35)  # authoring-ok: a negative check has no event to poll; the 15 s schedule must run twice and send nothing
+    time.sleep(35)  # authoring-ok: negative check, no event to poll; the 15 s schedule must run twice and send nothing
     check("no reminder after completion", len(mails_to(a_email)) == count_before)
 
     say("\n7. A partner who never answers is flagged to the team once")
@@ -216,7 +216,7 @@ def main() -> int:
     skip_days(2)
     wait_for("stalled alert", lambda: [m for m in mails_to(team) if m["Subject"].startswith("Stalled onboarding: Morgan")])
     skip_days(20)
-    time.sleep(35)  # authoring-ok: same negative check, two schedule runs with nothing due
+    time.sleep(35)  # authoring-ok: negative check again, two schedule runs with nothing due
     stalled = [m for m in mails_to(team) if m["Subject"].startswith("Stalled onboarding: Morgan")]
     check("exactly one stalled alert and no fourth reminder", len(stalled) == 1 and len([m for m in mails_to(b_email) if m["Subject"].startswith("Reminder")]) == 3)
 

@@ -216,7 +216,7 @@ def main() -> int:
     skip_days(2)
     wait_for("stalled alert", lambda: [m for m in mails_to(team) if m["Subject"].startswith("Stalled onboarding: Morgan")])
     skip_days(20)
-    time.sleep(35)  # fixed-wait-ok: same negative check, two schedule runs with nothing due
+    time.sleep(35)  # authoring-ok: same negative check, two schedule runs with nothing due
     stalled = [m for m in mails_to(team) if m["Subject"].startswith("Stalled onboarding: Morgan")]
     check("exactly one stalled alert and no fourth reminder", len(stalled) == 1 and len([m for m in mails_to(b_email) if m["Subject"].startswith("Reminder")]) == 3)
 

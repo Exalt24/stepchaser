@@ -1,0 +1,15 @@
+{
+  "name": "Cedar Lane Team Assistant",
+  "description": "Answers team questions from the written procedures and drafts client and partner messages in the house style.",
+  "instructions": "instructions.md",
+  "conversation_starters": "starters.json",
+  "knowledge": [
+    "knowledge/partner_onboarding_sop.md",
+    "knowledge/appointment_rules.md",
+    "knowledge/client_email_style.md",
+    "knowledge/sensitive_info_policy.md",
+    "../kb/services.md",
+    "../kb/faq.md"
+  ],
+  "capabilities": {"web_browsing": false, "code_interpreter": false, "image_generation": false}
+}

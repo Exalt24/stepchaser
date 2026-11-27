@@ -1,0 +1,768 @@
+{
+  "id": "partner-onboarding",
+  "name": "Partner onboarding",
+  "nodes": [
+    {
+      "id": "w1",
+      "name": "Partner signup",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        0
+      ],
+      "webhookId": "partner-signup",
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "partner-signup",
+        "responseMode": "responseNode",
+        "options": {}
+      }
+    },
+    {
+      "id": "h1",
+      "name": "Register in ledger",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        260,
+        0
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.DESK_URL }}/ledger/register",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-Desk-Key",
+              "value": "={{ $env.DESK_KEY }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ idempotency_key: $json.headers['idempotency-key'] || $json.body.signup_id, name: $json.body.name, email: $json.body.email, partner_type: $json.body.partner_type, tz: $json.body.tz, kickoff: $json.body.kickoff }) }}",
+        "options": {
+          "response": {
+            "response": {
+              "fullResponse": true,
+              "neverError": true
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "i1",
+      "name": "Accepted by ledger?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        520,
+        0
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose"
+          },
+          "conditions": [
+            {
+              "id": "i1-c",
+              "leftValue": "={{ $json.statusCode === 200 }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "i2",
+      "name": "New signup?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        780,
+        -120
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose"
+          },
+          "conditions": [
+            {
+              "id": "i2-c",
+              "leftValue": "={{ $json.body.created }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "c1",
+      "name": "Compose welcome and team summary",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1040,
+        -120
+      ],
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "\n// Wording for the two signup emails. The partner and checklist come from the ledger.\nconst p = $input.first().json.body.partner;\nconst req = $('Partner signup').first().json.body;\nconst list = p.missing.map((m, i) => `${i + 1}. ${m}`).join('\\n');\nconst kick = req.kickoff ? `\\nYour kickoff call is set for ${req.kickoff} (${p.tz}). A calendar file was created for it.\\n` : '';\nreturn [\n  { json: { to: p.email, subject: `Welcome, ${p.name}: your next steps`, text:\n`Hi ${p.name},\n\nWelcome to the ${p.partner_type} program. To finish onboarding we need ${p.missing.length} items from you:\n\n${list}\n${kick}\nReply to this email with each item as you have it. If something is still missing in a couple of days, we will send a short reminder that lists only what is left.\n\nCedar Lane Services` } },\n  { json: { to: $env.TEAM_EMAIL, subject: `New partner signup: ${p.name}`, text:\n`${p.name} <${p.email}> signed up as a ${p.partner_type} (time zone ${p.tz}).\n\nChecklist: 0 of ${p.missing.length} done.\n${list}\n\nThe welcome email with next steps was sent. The ledger will chase what is missing and tell you here if they stall.` } }\n];\n"
+      }
+    },
+    {
+      "id": "e1",
+      "name": "Send signup emails",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        1300,
+        -120
+      ],
+      "parameters": {
+        "fromEmail": "desk@cedar-lane.example.test",
+        "toEmail": "={{ $json.to }}",
+        "subject": "={{ $json.subject }}",
+        "emailFormat": "text",
+        "text": "={{ $json.text }}",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "credentials": {
+        "smtp": {
+          "id": "smtp-local",
+          "name": "Local mail catcher"
+        }
+      }
+    },
+    {
+      "id": "r1",
+      "name": "Reply accepted",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        1560,
+        -120
+      ],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify({ status: 'accepted', partner_id: $('Register in ledger').first().json.body.partner.id }) }}",
+        "options": {
+          "responseCode": 202
+        }
+      },
+      "executeOnce": true
+    },
+    {
+      "id": "r2",
+      "name": "Reply duplicate",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        1040,
+        40
+      ],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify({ status: 'duplicate', partner_id: $json.body.partner.id }) }}",
+        "options": {
+          "responseCode": 200
+        }
+      },
+      "executeOnce": true
+    },
+    {
+      "id": "r3",
+      "name": "Reply signup error",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        780,
+        160
+      ],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify({ error: $json.body.error || 'the ledger refused the signup' }) }}",
+        "options": {
+          "responseCode": "={{ $json.statusCode === 422 ? 422 : 502 }}"
+        }
+      },
+      "executeOnce": true
+    },
+    {
+      "id": "w2",
+      "name": "Item received",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        400
+      ],
+      "webhookId": "partner-item",
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "partner-item",
+        "responseMode": "responseNode",
+        "options": {}
+      }
+    },
+    {
+      "id": "h2",
+      "name": "Mark item in ledger",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        260,
+        400
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.DESK_URL }}/ledger/item",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-Desk-Key",
+              "value": "={{ $env.DESK_KEY }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ email: $json.body.email, item: $json.body.item }) }}",
+        "options": {
+          "response": {
+            "response": {
+              "fullResponse": true,
+              "neverError": true
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "i3",
+      "name": "Item accepted?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        520,
+        400
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose"
+          },
+          "conditions": [
+            {
+              "id": "i3-c",
+              "leftValue": "={{ $json.statusCode === 200 }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "i4",
+      "name": "Checklist now complete?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        780,
+        320
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose"
+          },
+          "conditions": [
+            {
+              "id": "i4-c",
+              "leftValue": "={{ $json.body.just_completed }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "c2",
+      "name": "Compose completion emails",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1040,
+        280
+      ],
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "\nconst p = $input.first().json.body.partner;\nreturn [\n  { json: { to: p.email, subject: `You are all set, ${p.name}`, text:\n`Hi ${p.name},\n\nWe have everything we need. Your onboarding is complete and our team will be in touch about the kickoff.\n\nCedar Lane Services` } },\n  { json: { to: $env.TEAM_EMAIL, subject: `Onboarding complete: ${p.name}`, text:\n`${p.name} <${p.email}> has all ${p.done.length} checklist items in. No more reminders will be sent.` } }\n];\n"
+      }
+    },
+    {
+      "id": "e2",
+      "name": "Send completion emails",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        1300,
+        280
+      ],
+      "parameters": {
+        "fromEmail": "desk@cedar-lane.example.test",
+        "toEmail": "={{ $json.to }}",
+        "subject": "={{ $json.subject }}",
+        "emailFormat": "text",
+        "text": "={{ $json.text }}",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "credentials": {
+        "smtp": {
+          "id": "smtp-local",
+          "name": "Local mail catcher"
+        }
+      }
+    },
+    {
+      "id": "r4",
+      "name": "Reply complete",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        1560,
+        280
+      ],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify({ status: 'complete', partner: $('Mark item in ledger').first().json.body.partner.email }) }}",
+        "options": {
+          "responseCode": 200
+        }
+      },
+      "executeOnce": true
+    },
+    {
+      "id": "r5",
+      "name": "Reply item recorded",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        1040,
+        440
+      ],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify({ status: 'recorded', missing: $json.body.partner.missing }) }}",
+        "options": {
+          "responseCode": 200
+        }
+      },
+      "executeOnce": true
+    },
+    {
+      "id": "r6",
+      "name": "Reply item error",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        780,
+        560
+      ],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify({ error: $json.body.error || 'the ledger refused the item' }) }}",
+        "options": {
+          "responseCode": "={{ $json.statusCode === 404 || $json.statusCode === 422 ? $json.statusCode : 502 }}"
+        }
+      },
+      "executeOnce": true
+    },
+    {
+      "id": "s1",
+      "name": "Chase schedule",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        800
+      ],
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "seconds",
+              "secondsInterval": 15
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "h3",
+      "name": "Claim reminders now due",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        260,
+        800
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.DESK_URL }}/ledger/chase",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-Desk-Key",
+              "value": "={{ $env.DESK_KEY }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({}) }}",
+        "options": {
+          "response": {
+            "response": {
+              "fullResponse": true,
+              "neverError": true
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "c3",
+      "name": "Compose reminders and alerts",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        520,
+        800
+      ],
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "\n// One email per claimed reminder, one alert per stalled partner, and a single digest for the team.\nconst chases = $input.first().json.body.chases || [];\nconst out = [];\nconst digest = [];\nfor (const c of chases) {\n  const p = c.partner;\n  const list = c.missing.map(m => `- ${m}`).join('\\n');\n  if (c.kind === 'stalled') {\n    out.push({ json: { partner_id: p.id, kind: 'stalled', to: $env.TEAM_EMAIL, subject: `Stalled onboarding: ${p.name}`, text:\n`${p.name} <${p.email}> has not finished after ${c.n} reminders. Still missing:\n${list}\n\nNo more automatic reminders will go to them. A person should reach out.` } });\n    continue;\n  }\n  const closing = c.last ? 'This is our last automatic reminder. After this, someone from our team will contact you.' : 'Reply to this email with each one as you have it.';\n  out.push({ json: { partner_id: p.id, kind: 'reminder', to: p.email, subject: `Reminder ${c.n}: ${c.missing.length} item(s) still needed`, text:\n`Hi ${p.name},\n\nWe are still waiting on:\n${list}\n\n${closing}\n\nCedar Lane Services` } });\n  digest.push(`${p.name}: reminder ${c.n}, ${c.missing.length} missing (${c.missing.join(', ')})`);\n}\nif (digest.length) {\n  out.push({ json: { partner_id: 0, kind: 'digest', to: $env.TEAM_EMAIL, subject: `Onboarding digest: ${digest.length} partner(s) chased`, text: digest.join('\\n') } });\n}\nreturn out;\n"
+      }
+    },
+    {
+      "id": "e3",
+      "name": "Send reminders",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        780,
+        800
+      ],
+      "parameters": {
+        "fromEmail": "desk@cedar-lane.example.test",
+        "toEmail": "={{ $json.to }}",
+        "subject": "={{ $json.subject }}",
+        "emailFormat": "text",
+        "text": "={{ $json.text }}",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "credentials": {
+        "smtp": {
+          "id": "smtp-local",
+          "name": "Local mail catcher"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "id": "h4",
+      "name": "Release claim after a failed send",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1040,
+        900
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.DESK_URL }}/ledger/release",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-Desk-Key",
+              "value": "={{ $env.DESK_KEY }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ partner_id: $json.partner_id, kind: $json.kind }) }}",
+        "options": {
+          "response": {
+            "response": {
+              "fullResponse": true,
+              "neverError": true
+            }
+          }
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Partner signup": {
+      "main": [
+        [
+          {
+            "node": "Register in ledger",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Register in ledger": {
+      "main": [
+        [
+          {
+            "node": "Accepted by ledger?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Accepted by ledger?": {
+      "main": [
+        [
+          {
+            "node": "New signup?",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Reply signup error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "New signup?": {
+      "main": [
+        [
+          {
+            "node": "Compose welcome and team summary",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Reply duplicate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Compose welcome and team summary": {
+      "main": [
+        [
+          {
+            "node": "Send signup emails",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send signup emails": {
+      "main": [
+        [
+          {
+            "node": "Reply accepted",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Item received": {
+      "main": [
+        [
+          {
+            "node": "Mark item in ledger",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mark item in ledger": {
+      "main": [
+        [
+          {
+            "node": "Item accepted?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Item accepted?": {
+      "main": [
+        [
+          {
+            "node": "Checklist now complete?",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Reply item error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Checklist now complete?": {
+      "main": [
+        [
+          {
+            "node": "Compose completion emails",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Reply item recorded",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Compose completion emails": {
+      "main": [
+        [
+          {
+            "node": "Send completion emails",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send completion emails": {
+      "main": [
+        [
+          {
+            "node": "Reply complete",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Chase schedule": {
+      "main": [
+        [
+          {
+            "node": "Claim reminders now due",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Claim reminders now due": {
+      "main": [
+        [
+          {
+            "node": "Compose reminders and alerts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Compose reminders and alerts": {
+      "main": [
+        [
+          {
+            "node": "Send reminders",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send reminders": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Release claim after a failed send",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {}
+}

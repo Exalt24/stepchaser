@@ -1,0 +1,13 @@
+Custom GPT package evaluation: model=qwen/qwen3.8-27b cases=40 run at 2026-11-27T18:15:52+00:00
+overall: 36/40 = 0.900 (95% CI 0.769 to 0.960)
+  split dev      29/32 = 0.906 (95% CI 0.758 to 0.968)
+  split heldout  7/8 = 0.875 (95% CI 0.529 to 0.978)
+  advice           2/3 = 0.667 (95% CI 0.208 to 0.939)
+  draft            5/6 = 0.833 (95% CI 0.436 to 0.970)
+  injection        2/2 = 1.000 (95% CI 0.342 to 1.000)
+  not-in-knowledge 3/3 = 1.000 (95% CI 0.438 to 1.000)
+  procedure        11/12 = 0.917 (95% CI 0.646 to 0.985)
+  sensitive        5/6 = 0.833 (95% CI 0.436 to 0.970)
+  services         8/8 = 1.000 (95% CI 0.676 to 1.000)
+cases with no model answer (rate limit or outage, counted as failed): 0
+failed cases: g09, g21, g27, g38

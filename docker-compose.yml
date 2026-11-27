@@ -1,0 +1,57 @@
+# One command starts everything: docker compose up -d --build
+#   mail catcher UI  http://localhost:8025   (every email the system sends lands here, none leave the machine)
+#   desk page        http://localhost:8080   (signup form, board, lead chat, appointments)
+#   n8n              http://localhost:5678   (the onboarding workflow is imported and published at start)
+# Set GROQ_API_KEY (or LLM_API_KEY, LLM_BASE_URL, LLM_MODEL) in your shell for a real model in the lead chat.
+# REMIND_EVERY_SECONDS is how long the ledger waits between reminders (default two days).
+services:
+  mailpit:
+    image: axllent/mailpit:v1.34.0
+    ports: ["8025:8025", "1025:1025"]
+
+  desk:
+    build: .
+    ports: ["8080:8080"]
+    environment:
+      DESK_KEY: local-desk-key
+      SMTP_HOST: mailpit
+      SMTP_PORT: "1025"
+      TEAM_EMAIL: team@cedar-lane.example.test
+      N8N_BASE: http://n8n:5678
+      REMIND_EVERY_SECONDS: ${REMIND_EVERY_SECONDS:-172800}
+      MAX_REMINDERS: ${MAX_REMINDERS:-3}
+      DATA_DIR: /data
+      GROQ_API_KEY: ${GROQ_API_KEY:-}
+      LLM_API_KEY: ${LLM_API_KEY:-}
+      LLM_BASE_URL: ${LLM_BASE_URL:-}
+      LLM_MODEL: ${LLM_MODEL:-}
+    volumes:
+      - ./runtime:/data
+    depends_on: [mailpit]
+
+  n8n:
+    image: n8nio/n8n:2.49.8
+    ports: ["5678:5678"]
+    environment:
+      N8N_BLOCK_ENV_ACCESS_IN_NODE: "false"   # the Code nodes read DESK_URL, DESK_KEY and TEAM_EMAIL
+      DESK_URL: http://desk:8080
+      DESK_KEY: local-desk-key
+      TEAM_EMAIL: team@cedar-lane.example.test
+      N8N_DIAGNOSTICS_ENABLED: "false"
+      N8N_PERSONALIZATION_ENABLED: "false"
+      N8N_ENCRYPTION_KEY: local-demo-encryption-key
+      GENERIC_TIMEZONE: UTC
+    volumes:
+      - ./n8n/seed:/seed:ro
+      - n8n_data:/home/node/.n8n
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - >
+        n8n import:credentials --input=/seed/credentials.json &&
+        n8n import:workflow --input=/seed/onboarding.workflow.json &&
+        n8n publish:workflow --id=partner-onboarding &&
+        exec n8n start
+    depends_on: [desk, mailpit]
+
+volumes:
+  n8n_data:

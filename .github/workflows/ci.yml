@@ -1,0 +1,65 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.13"
+          cache: pip
+      - name: Install
+        run: pip install -r requirements.txt
+      - name: Tests (unit, seeded random worlds, desk service, package checks)
+        run: python -m pytest -q
+      - name: The n8n workflow file is the one the generator writes
+        run: |
+          python n8n/build_workflow.py
+          git diff --exit-code n8n/seed/onboarding.workflow.json
+      - name: Mutation check (each safeguard broken on purpose must turn the tests red)
+        run: python scripts/mutation_check.py
+      - name: The custom GPT package is inside the builder limits
+        run: python scripts/run_gpt_eval.py --validate-only
+      - name: Stand-in router evaluation runs end to end (no model, no key)
+        run: python scripts/run_router_eval.py --set test --llm standin --out "$RUNNER_TEMP/proof"
+
+  stack:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.13"
+      - name: Start n8n, the mail catcher and the desk
+        run: docker compose up -d --build
+      - name: Wait for the published workflow to answer
+        run: |
+          for i in $(seq 1 90); do
+            if docker compose logs n8n 2>&1 | grep -q "Editor is now accessible"; then echo "n8n is up after $((i*3)) seconds"; exit 0; fi
+            sleep 3
+          done
+          docker compose logs n8n | tail -50
+          exit 1
+      - name: Onboarding proof against the real n8n webhooks and mail catcher (first four sections)
+        run: python scripts/run_onboarding_proof.py --quick
+      - name: Logs on failure
+        if: failure()
+        run: docker compose logs --no-color | tail -150
+      - name: Stop
+        if: always()
+        run: docker compose down -v

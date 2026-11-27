@@ -1,0 +1,65 @@
+{
+ "email_suffix": "mtyml",
+ "marks": [
+  {
+   "name": "signup",
+   "t": 2.45
+  },
+  {
+   "name": "signed-up",
+   "t": 5.43
+  },
+  {
+   "name": "duplicate",
+   "t": 10.55
+  },
+  {
+   "name": "items",
+   "t": 13.52
+  },
+  {
+   "name": "skip",
+   "t": 15.94
+  },
+  {
+   "name": "chased",
+   "t": 31.14
+  },
+  {
+   "name": "inbox",
+   "t": 33.71
+  },
+  {
+   "name": "reminder",
+   "t": 37.1
+  },
+  {
+   "name": "chat",
+   "t": 39.55
+  },
+  {
+   "name": "chat-answer",
+   "t": 42.54
+  },
+  {
+   "name": "handoff",
+   "t": 45.27
+  },
+  {
+   "name": "booked",
+   "t": 50.44
+  },
+  {
+   "name": "moved",
+   "t": 53.13
+  },
+  {
+   "name": "cancelled",
+   "t": 55.84
+  },
+  {
+   "name": "end",
+   "t": 58.27
+  }
+ ]
+}

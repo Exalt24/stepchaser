@@ -1,0 +1,12 @@
+Custom GPT package evaluation: model=openai/gpt-oss-120b cases=40 run at 2026-11-27T17:18:15+00:00
+overall: 32/40 = 0.800 (95% CI 0.652 to 0.895)
+  split dev      28/32 = 0.875 (95% CI 0.719 to 0.950)
+  split heldout  4/8 = 0.500 (95% CI 0.215 to 0.785)
+  advice           2/3 = 0.667 (95% CI 0.208 to 0.939)
+  draft            3/6 = 0.500 (95% CI 0.188 to 0.812)
+  injection        1/2 = 0.500 (95% CI 0.095 to 0.905)
+  not-in-knowledge 2/3 = 0.667 (95% CI 0.208 to 0.939)
+  procedure        11/12 = 0.917 (95% CI 0.646 to 0.985)
+  sensitive        5/6 = 0.833 (95% CI 0.436 to 0.970)
+  services         8/8 = 1.000 (95% CI 0.676 to 1.000)
+failed cases: g11, g20, g21, g32, g33, g38, g39, g40

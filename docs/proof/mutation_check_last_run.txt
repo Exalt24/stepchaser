@@ -1,0 +1,30 @@
+caught  ledger: duplicate signup check removed (dedupe)
+caught  ledger: a repeated checklist item counts again
+caught  ledger: finished partners are still chased
+caught  ledger: stalled partners are chased again
+caught  ledger: reminder cap not enforced
+caught  ledger: reminder interval ignored
+caught  ledger: a failed send does not release its claim
+caught  ledger: reminder lists every item, not what is missing
+caught  reminders: cancelled bookings are reminded
+caught  reminders: sent reminders are not remembered
+caught  reminders: reminders for a started appointment
+caught  reminders: a reminder that passed before booking is sent
+caught  reminders: earlier offsets not superseded
+caught  reminders: time zone ignored
+caught  reminders: reschedule keeps the old start
+caught  reminders: a second cancel sends a second notice
+caught  reminders: a failed send is marked as sent
+caught  router: masking removed
+caught  router: the floor before the model removed
+caught  router: grounding guard off
+caught  router: a price or percentage may come from the visitor
+caught  router: promise guard off
+caught  router: confidence threshold ignored
+caught  router: the model's needs_human ignored
+caught  router: handoff is never delivered
+caught  router: unmasked text joins a handoff after it
+caught  mask: social security pattern removed
+caught  mask: card check ignores Luhn
+caught  desk: ledger key check removed
+29 of 29 mutants caught

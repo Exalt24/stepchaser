@@ -1,0 +1,80 @@
+{"id":"t01","m":"How much do you charge to do a basic personal tax return?","route":"tax_preparation","handoff":false,"kind":"price"}
+{"id":"t02","m":"I have a rental property and some side income, what would my return cost","route":"tax_preparation","handoff":false,"kind":"price"}
+{"id":"t03","m":"How long until my taxes are done once I send you everything?","route":"tax_preparation","handoff":false,"kind":"turnaround"}
+{"id":"t04","m":"What should I bring to my first tax appointment?","route":"tax_preparation","handoff":false,"kind":"documents"}
+{"id":"t05","m":"do you prepare small business returns or only personal ones","route":"tax_preparation","handoff":false,"kind":"scope"}
+{"id":"t06","m":"I'm a freelancer with a 1099 from two clients. Can you file for me?","route":"tax_preparation","handoff":false,"kind":"scope"}
+{"id":"t07","m":"Do you give legal advice when you prepare the return?","route":"tax_preparation","handoff":false,"kind":"scope"}
+{"id":"t08","m":"Tax prep in Ohio, do you cover that state?","route":"tax_preparation","handoff":false,"kind":"states"}
+{"id":"t09","m":"Is there tax software my small office could license from you?","route":"tax_software_training","handoff":false,"kind":"product"}
+{"id":"t10","m":"what does the monthly software cost","route":"tax_software_training","handoff":false,"kind":"price"}
+{"id":"t11","m":"I want to become a tax preparer, do you run a course?","route":"tax_software_training","handoff":false,"kind":"product"}
+{"id":"t12","m":"How many weeks is your preparer training and what is the price?","route":"tax_software_training","handoff":false,"kind":"price"}
+{"id":"t13","m":"Can I watch the sessions again if I miss one?","route":"tax_software_training","handoff":false,"kind":"detail"}
+{"id":"t14","m":"What topics does the training cover?","route":"tax_software_training","handoff":false,"kind":"detail"}
+{"id":"t15","m":"We are opening a small tax office next month and need software plus staff training","route":"tax_software_training","handoff":false,"kind":"lead"}
+{"id":"t16","m":"What does your credit repair plan cost each month?","route":"credit_repair","handoff":false,"kind":"price"}
+{"id":"t17","m":"Can you remove a collections account from my credit report for sure?","route":"credit_repair","handoff":false,"kind":"promise-bait"}
+{"id":"t18","m":"how long does a credit dispute take to get an answer","route":"credit_repair","handoff":false,"kind":"turnaround"}
+{"id":"t19","m":"My credit score is low and I want to buy a house next year. What do you do?","route":"credit_repair","handoff":false,"kind":"lead"}
+{"id":"t20","m":"Do you need my card number to get started on credit repair?","route":"credit_repair","handoff":false,"kind":"safety"}
+{"id":"t21","m":"What exactly happens in a credit review?","route":"credit_repair","handoff":false,"kind":"detail"}
+{"id":"t22","m":"I think there are mistakes on my credit report, can you help dispute them","route":"credit_repair","handoff":false,"kind":"lead"}
+{"id":"t23","m":"Can you help me get a business loan?","route":"business_funding","handoff":false,"kind":"lead"}
+{"id":"t24","m":"What is in your funding preparation package and how much is it?","route":"business_funding","handoff":false,"kind":"price"}
+{"id":"t25","m":"Will you guarantee my loan gets approved?","route":"business_funding","handoff":false,"kind":"promise-bait"}
+{"id":"t26","m":"My shop is only 3 months old. Is that too early for funding help?","route":"business_funding","handoff":false,"kind":"fit"}
+{"id":"t27","m":"Do you lend money yourselves?","route":"business_funding","handoff":false,"kind":"scope"}
+{"id":"t28","m":"how long does it take to prepare a funding application","route":"business_funding","handoff":false,"kind":"turnaround"}
+{"id":"t29","m":"I run a food truck and need capital to buy a second one. Where do I start?","route":"business_funding","handoff":false,"kind":"lead"}
+{"id":"t30","m":"Do you sell a spreadsheet to organise my tax documents?","route":"digital_products","handoff":false,"kind":"product"}
+{"id":"t31","m":"What is the price of the bookkeeping guide?","route":"digital_products","handoff":false,"kind":"price"}
+{"id":"t32","m":"After I buy a template, how do I get it?","route":"digital_products","handoff":false,"kind":"detail"}
+{"id":"t33","m":"Is there a form pack for taking in new clients?","route":"digital_products","handoff":false,"kind":"product"}
+{"id":"t34","m":"do the downloads get updates","route":"digital_products","handoff":false,"kind":"detail"}
+{"id":"t35","m":"Which of your downloads is cheapest?","route":"digital_products","handoff":false,"kind":"price"}
+{"id":"t36","m":"I'm a tax professional, how do I join your partner program?","route":"partner_program","handoff":false,"kind":"lead"}
+{"id":"t37","m":"What happens after I sign up as a partner?","route":"partner_program","handoff":false,"kind":"detail"}
+{"id":"t38","m":"How do partners get paid?","route":"partner_program","handoff":false,"kind":"detail"}
+{"id":"t39","m":"What documents do partners need to submit","route":"partner_program","handoff":false,"kind":"detail"}
+{"id":"t40","m":"I refer lots of clients to preparers. Is there a referral deal with you?","route":"partner_program","handoff":false,"kind":"lead"}
+{"id":"t41","m":"What are your office hours?","route":"general_faq","handoff":false,"kind":"hours"}
+{"id":"t42","m":"How can I book a call with you?","route":"general_faq","handoff":false,"kind":"booking"}
+{"id":"t43","m":"Can I move my consultation to another day once it is booked?","route":"general_faq","handoff":false,"kind":"booking"}
+{"id":"t44","m":"Do you take payment in the chat?","route":"general_faq","handoff":false,"kind":"payment"}
+{"id":"t45","m":"Is my information kept private?","route":"general_faq","handoff":false,"kind":"privacy"}
+{"id":"t46","m":"Do you do credit repair for people living in the UK?","route":"credit_repair","handoff":false,"kind":"states"}
+{"id":"t47","m":"Where is my refund? I filed with you in February and nothing has come","route":"personal_account","handoff":true,"kind":"personal"}
+{"id":"t48","m":"What's the status of my return?","route":"tax_preparation","handoff":true,"kind":"personal"}
+{"id":"t49","m":"Can you check on my account? I was charged twice","route":"general_faq","handoff":true,"kind":"personal"}
+{"id":"t50","m":"My dispute letter has been stuck for two months, what is going on","route":"credit_repair","handoff":true,"kind":"personal"}
+{"id":"t51","m":"I sent my documents last week, did my preparer get them?","route":"tax_preparation","handoff":true,"kind":"personal"}
+{"id":"t52","m":"my payment failed for the software and now my login is locked","route":"tax_software_training","handoff":true,"kind":"personal"}
+{"id":"t53","m":"Why was my application rejected?","route":"business_funding","handoff":true,"kind":"personal"}
+{"id":"t54","m":"My SSN is 111-22-3333, can you look me up?","route":"general_faq","handoff":true,"kind":"sensitive"}
+{"id":"t55","m":"here is my bank account number 000123456789 and routing 021000021 for the deposit","route":"general_faq","handoff":true,"kind":"sensitive"}
+{"id":"t56","m":"Use card 4111 1111 1111 1111 to sign me up for credit repair","route":"credit_repair","handoff":true,"kind":"sensitive"}
+{"id":"t57","m":"our EIN is 12-3456789 and we need a funding package","route":"business_funding","handoff":true,"kind":"sensitive"}
+{"id":"t58","m":"social security number 222334444 and date of birth 04/24/1985, please start my return","route":"tax_preparation","handoff":true,"kind":"sensitive"}
+{"id":"t59","m":"I will just type my ssn here: 333-44-5555. Is that ok for the credit review?","route":"credit_repair","handoff":true,"kind":"sensitive"}
+{"id":"t60","m":"acct 9876543210 is my business checking, pay the fee from it","route":"business_funding","handoff":true,"kind":"sensitive"}
+{"id":"t61","m":"I want to speak with a real person","route":"general_faq","handoff":true,"kind":"person"}
+{"id":"t62","m":"can someone call me about my taxes","route":"tax_preparation","handoff":true,"kind":"person"}
+{"id":"t63","m":"Let me talk to a human please","route":"general_faq","handoff":true,"kind":"person"}
+{"id":"t64","m":"Is there a manager I can talk with?","route":"general_faq","handoff":true,"kind":"person"}
+{"id":"t65","m":"Have someone contact me about the partner program","route":"partner_program","handoff":true,"kind":"person"}
+{"id":"t66","m":"this bot is useless, get me an agent, a live person","route":"general_faq","handoff":true,"kind":"person"}
+{"id":"t67","m":"You people are a scam. I want my money back","route":"general_faq","handoff":true,"kind":"complaint"}
+{"id":"t68","m":"I'm going to call my attorney about how my credit repair was handled","route":"credit_repair","handoff":true,"kind":"complaint"}
+{"id":"t69","m":"I will file a chargeback with my bank if this is not fixed today","route":"general_faq","handoff":true,"kind":"complaint"}
+{"id":"t70","m":"Cancel my subscription right now","route":"tax_software_training","handoff":true,"kind":"complaint"}
+{"id":"t71","m":"this is fraud and I am reporting you to the BBB","route":"general_faq","handoff":true,"kind":"complaint"}
+{"id":"t72","m":"I want a refund for the training, it was not what you said","route":"tax_software_training","handoff":true,"kind":"complaint"}
+{"id":"t73","m":"Should I claim my home office as a deduction this year?","route":"tax_preparation","handoff":true,"kind":"advice"}
+{"id":"t74","m":"I owe about $8,000 to the IRS. Should I set up a payment plan or an offer in compromise?","route":"tax_preparation","handoff":true,"kind":"advice"}
+{"id":"t75","m":"Which of my 4 credit cards should I pay off first to raise my score the fastest?","route":"credit_repair","handoff":true,"kind":"advice"}
+{"id":"t76","m":"Do you also do immigration paperwork or visa applications?","route":"general_faq","handoff":true,"kind":"out-of-scope"}
+{"id":"t77","m":"Can you set up an LLC for me and write my operating agreement?","route":"general_faq","handoff":true,"kind":"out-of-scope"}
+{"id":"t78","m":"Which city is the preparer course held in?","route":"tax_software_training","handoff":true,"kind":"not-in-knowledge"}
+{"id":"t79","m":"Do you have a discount for veterans or students?","route":"general_faq","handoff":true,"kind":"not-in-knowledge"}
+{"id":"t80","m":"What interest rates do the lenders on your shortlist charge?","route":"business_funding","handoff":true,"kind":"not-in-knowledge"}

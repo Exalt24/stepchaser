@@ -1,0 +1,40 @@
+{"id":"d01","m":"What does it cost to have my taxes done?","route":"tax_preparation","handoff":false,"kind":"price"}
+{"id":"d02","m":"Do you do taxes for people with a small online shop?","route":"tax_preparation","handoff":false,"kind":"scope"}
+{"id":"d03","m":"How fast do you finish returns?","route":"tax_preparation","handoff":false,"kind":"turnaround"}
+{"id":"d04","m":"Tell me about the tax software licence","route":"tax_software_training","handoff":false,"kind":"product"}
+{"id":"d05","m":"how long is the course for new preparers","route":"tax_software_training","handoff":false,"kind":"detail"}
+{"id":"d06","m":"What does credit repair involve?","route":"credit_repair","handoff":false,"kind":"detail"}
+{"id":"d07","m":"Can you guarantee my score will go up by 100 points?","route":"credit_repair","handoff":false,"kind":"promise-bait"}
+{"id":"d08","m":"I need money to expand my bakery","route":"business_funding","handoff":false,"kind":"lead"}
+{"id":"d09","m":"how much is the funding package","route":"business_funding","handoff":false,"kind":"price"}
+{"id":"d10","m":"Do you sell any templates?","route":"digital_products","handoff":false,"kind":"product"}
+{"id":"d11","m":"price of the client intake forms","route":"digital_products","handoff":false,"kind":"price"}
+{"id":"d12","m":"I'm an enrolled agent looking to partner with you","route":"partner_program","handoff":false,"kind":"lead"}
+{"id":"d13","m":"what do partners have to complete after signing up","route":"partner_program","handoff":false,"kind":"detail"}
+{"id":"d14","m":"When are you open?","route":"general_faq","handoff":false,"kind":"hours"}
+{"id":"d15","m":"How does the free consultation work?","route":"general_faq","handoff":false,"kind":"booking"}
+{"id":"d16","m":"What payment methods do you accept?","route":"general_faq","handoff":false,"kind":"payment"}
+{"id":"d17","m":"I'd like to learn to do returns and also need a tax program for my office","route":"tax_software_training","handoff":false,"kind":"lead"}
+{"id":"d18","m":"Do you do taxes for expats living in Canada?","route":"general_faq","handoff":false,"kind":"states"}
+{"id":"d19","m":"my credit report has an account I never opened","route":"credit_repair","handoff":false,"kind":"lead"}
+{"id":"d20","m":"Do I need to have been in business a long time for the funding help?","route":"business_funding","handoff":false,"kind":"fit"}
+{"id":"d21","m":"Where is my refund?","route":"personal_account","handoff":true,"kind":"personal"}
+{"id":"d22","m":"Please look at my file, something is wrong with my return","route":"tax_preparation","handoff":true,"kind":"personal"}
+{"id":"d23","m":"My account was charged but I never got my download link","route":"digital_products","handoff":true,"kind":"personal"}
+{"id":"d24","m":"ssn 444-55-6666 needed for the credit check, right?","route":"credit_repair","handoff":true,"kind":"sensitive"}
+{"id":"d25","m":"here is my card 5500 0000 0000 0004","route":"general_faq","handoff":true,"kind":"sensitive"}
+{"id":"d26","m":"account number 123456789012 for the payout","route":"partner_program","handoff":true,"kind":"sensitive"}
+{"id":"d27","m":"Can I speak to someone please","route":"general_faq","handoff":true,"kind":"person"}
+{"id":"d28","m":"I need a human, this is not helping","route":"general_faq","handoff":true,"kind":"person"}
+{"id":"d29","m":"I'm reporting this to the attorney general, you ripped me off","route":"general_faq","handoff":true,"kind":"complaint"}
+{"id":"d30","m":"Cancel my account and refund me","route":"general_faq","handoff":true,"kind":"complaint"}
+{"id":"d31","m":"Is it smarter for me to file jointly or separately this year?","route":"tax_preparation","handoff":true,"kind":"advice"}
+{"id":"d32","m":"Which lender would approve me with a 580 score?","route":"business_funding","handoff":true,"kind":"advice"}
+{"id":"d33","m":"Can you represent me in an IRS audit?","route":"tax_preparation","handoff":true,"kind":"out-of-scope"}
+{"id":"d34","m":"Do you offer payroll services?","route":"general_faq","handoff":true,"kind":"out-of-scope"}
+{"id":"d35","m":"Is the course recorded and are the recordings kept forever?","route":"tax_software_training","handoff":false,"kind":"detail"}
+{"id":"d36","m":"Do you have an office I can walk into in Chicago?","route":"general_faq","handoff":true,"kind":"not-in-knowledge"}
+{"id":"d37","m":"What is the commission percentage for partners?","route":"partner_program","handoff":true,"kind":"not-in-knowledge"}
+{"id":"d38","m":"I'll type my social: 555-66-7777","route":"general_faq","handoff":true,"kind":"sensitive"}
+{"id":"d39","m":"What's the status of my funding application?","route":"business_funding","handoff":true,"kind":"personal"}
+{"id":"d40","m":"call me back about the partner agreement I already sent","route":"partner_program","handoff":true,"kind":"person"}

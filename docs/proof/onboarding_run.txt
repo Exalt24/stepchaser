@@ -1,0 +1,50 @@
+Partner onboarding proof run f4625e: n8n webhooks -> ledger -> Mailpit. Partners are made up.
+
+1. A signup starts the workflow
+  PASS  signup answers 202 accepted   [202 {'status': 'accepted', 'partner_id': 1}]
+  PASS  welcome email lists all 5 checklist items
+  PASS  welcome email mentions the kickoff call
+  PASS  team summary email sent
+  PASS  kickoff calendar file was written
+
+2. Idempotent: retries, a parallel burst and a double click send nothing more
+  PASS  retry with the same key answers duplicate   [200 {'status': 'duplicate', 'partner_id': 1}]
+  PASS  retry with the same key answers duplicate   [200 {'status': 'duplicate', 'partner_id': 1}]
+  PASS  retry with the same key answers duplicate   [200 {'status': 'duplicate', 'partner_id': 1}]
+  PASS  6 parallel retries all answer duplicate
+  PASS  same email in capitals with a new key is a duplicate   [200 {'status': 'duplicate', 'partner_id': 1}]
+  PASS  no extra email left the system   [2 -> 2]
+  PASS  6 simultaneous FIRST deliveries: exactly one accepted and one welcome email   [accepted=1, welcomes=1]
+  PASS  an invalid signup answers 422 and sends nothing   [422 {'error': 'a signup needs a name and a valid email'}]
+
+3. The checklist is tracked
+  PASS  item recorded   [{'status': 'recorded', 'missing': ['Identity check', 'Payout details form', 'Training module', 'Profile photo']}]
+  PASS  the same item again changes nothing
+  PASS  a second item recorded
+  PASS  an unknown item is refused   [422]
+  PASS  an unknown partner is refused   [404]
+
+4. Two days pass: the follow-up lists only what is missing
+  PASS  reminder names the 3 missing items and none of the 2 done
+  PASS  team digest names the partner chased
+
+5. A mail server outage loses no reminder
+  PASS  a failed send released its claim
+  PASS  the reminder arrives once the mail server is back
+
+6. The last items arrive: completion emails, then silence
+  PASS  the final item answers complete   [{'status': 'complete', 'partner': 'riley.f4625e@example.test'}]
+  PASS  no reminder after completion
+
+7. A partner who never answers is flagged to the team once
+  PASS  second partner accepted   [202]
+  PASS  reminder 3 says it is the last automatic one
+  PASS  exactly one stalled alert and no fourth reminder
+
+8. The log
+  ledger events by kind: {"claim-released": 4, "completed": 1, "duplicate-signup": 15, "item-done": 5, "item-repeat": 1, "kickoff-calendar-file": 1, "reminder-claimed": 12, "signup": 3, "stalled": 2}
+  PASS  the event log file exists and has the same events
+
+messages in the inbox at the end: 17
+
+RESULT: ALL CHECKS PASSED

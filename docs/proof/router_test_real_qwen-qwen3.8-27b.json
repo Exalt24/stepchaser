@@ -1,0 +1,1093 @@
+{
+ "set": "test",
+ "llm": "real model qwen/qwen3.8-27b",
+ "run_at": "2026-11-27T18:34:36+00:00",
+ "metrics": {
+  "cases": 80,
+  "routing_accuracy_on_answerable": {
+   "k": 46,
+   "n": 46,
+   "value": 1.0,
+   "ci95": [
+    0.923,
+    1.0
+   ]
+  },
+  "answered_correctly_end_to_end": {
+   "k": 45,
+   "n": 46,
+   "value": 0.9782608695652174,
+   "ci95": [
+    0.887,
+    0.996
+   ]
+  },
+  "handoff_precision": {
+   "k": 31,
+   "n": 32,
+   "value": 0.96875,
+   "ci95": [
+    0.843,
+    0.994
+   ]
+  },
+  "handoff_recall": {
+   "k": 31,
+   "n": 34,
+   "value": 0.9117647058823529,
+   "ci95": [
+    0.77,
+    0.97
+   ]
+  },
+  "false_handoff_rate_on_answerable": {
+   "k": 1,
+   "n": 46,
+   "value": 0.021739130434782608,
+   "ci95": [
+    0.004,
+    0.113
+   ]
+  },
+  "confusion": {
+   "tp": 31,
+   "fp": 1,
+   "fn": 3,
+   "tn": 45
+  },
+  "handoff_recall_by_kind": {
+   "advice": {
+    "k": 3,
+    "n": 3,
+    "value": 1.0,
+    "ci95": [
+     0.438,
+     1.0
+    ]
+   },
+   "complaint": {
+    "k": 6,
+    "n": 6,
+    "value": 1.0,
+    "ci95": [
+     0.61,
+     1.0
+    ]
+   },
+   "not-in-knowledge": {
+    "k": 2,
+    "n": 3,
+    "value": 0.6666666666666666,
+    "ci95": [
+     0.208,
+     0.939
+    ]
+   },
+   "out-of-scope": {
+    "k": 0,
+    "n": 2,
+    "value": 0.0,
+    "ci95": [
+     0.0,
+     0.658
+    ]
+   },
+   "person": {
+    "k": 6,
+    "n": 6,
+    "value": 1.0,
+    "ci95": [
+     0.61,
+     1.0
+    ]
+   },
+   "personal": {
+    "k": 7,
+    "n": 7,
+    "value": 1.0,
+    "ci95": [
+     0.646,
+     1.0
+    ]
+   },
+   "sensitive": {
+    "k": 7,
+    "n": 7,
+    "value": 1.0,
+    "ci95": [
+     0.646,
+     1.0
+    ]
+   }
+  }
+ },
+ "masking": {
+  "cases_with_sensitive_values": 7,
+  "prompts_containing_a_raw_value": 0,
+  "audit_log_lines_containing_a_raw_value": 0
+ },
+ "model_calls": 58,
+ "model_errors": 0,
+ "cases": [
+  {
+   "id": "t01",
+   "message": "How much do you charge to do a basic personal tax return?",
+   "kind": "price",
+   "expected_route": "tax_preparation",
+   "expected_handoff": false,
+   "route": "tax_preparation",
+   "handoff": false,
+   "reason": null,
+   "confidence": 1.0,
+   "model_called": true
+  },
+  {
+   "id": "t02",
+   "message": "I have a rental property and some side income, what would my return cost",
+   "kind": "price",
+   "expected_route": "tax_preparation",
+   "expected_handoff": false,
+   "route": "tax_preparation",
+   "handoff": false,
+   "reason": null,
+   "confidence": 0.95,
+   "model_called": true
+  },
+  {
+   "id": "t03",
+   "message": "How long until my taxes are done once I send you everything?",
+   "kind": "turnaround",
+   "expected_route": "tax_preparation",
+   "expected_handoff": false,
+   "route": "tax_preparation",
+   "handoff": false,
+   "reason": null,
+   "confidence": 0.95,
+   "model_called": true
+  },
+  {
+   "id": "t04",
+   "message": "What should I bring to my first tax appointment?",
+   "kind": "documents",
+   "expected_route": "tax_preparation",
+   "expected_handoff": false,
+   "route": "tax_preparation",
+   "handoff": false,
+   "reason": null,
+   "confidence": 0.95,
+   "model_called": true
+  },
+  {
+   "id": "t05",
+   "message": "do you prepare small business returns or only personal ones",
+   "kind": "scope",
+   "expected_route": "tax_preparation",
+   "expected_handoff": false,
+   "route": "tax_preparation",
+   "handoff": false,
+   "reason": null,
+   "confidence": 1.0,
+   "model_called": true
+  },
+  {
+   "id": "t06",
+   "message": "I'm a freelancer with a 1099 from two clients. Can you file for me?",
+   "kind": "scope",
+   "expected_route": "tax_preparation",
+   "expected_handoff": false,
+   "route": "tax_preparation",
+   "handoff": false,
+   "reason": null,
+   "confidence": 0.95,
+   "model_called": true
+  },
+  {
+   "id": "t07",
+   "message": "Do you give legal advice when you prepare the return?",
+   "kind": "scope",
+   "expected_route": "tax_preparation",
+   "expected_handoff": false,
+   "route": "tax_preparation",
+   "handoff": false,
+   "reason": null,
+   "confidence": 1.0,
+   "model_called": true
+  },
+  {
+   "id": "t08",
+   "message": "Tax prep in Ohio, do you cover that state?",
+   "kind": "states",
+   "expected_route": "tax_preparation",
+   "expected_handoff": false,
+   "route": "tax_preparation",
+   "handoff": false,
+   "reason": null,
+   "confidence": 1.0,
+   "model_called": true
+  },
+  {
+   "id": "t09",
+   "message": "Is there tax software my small office could license from you?",
+   "kind": "product",
+   "expected_route": "tax_software_training",
+   "expected_handoff": false,
+   "route": "tax_software_training",
+   "handoff": false,
+   "reason": null,
+   "confidence": 0.95,
+   "model_called": true
+  },
+  {
+   "id": "t10",
+   "message": "what does the monthly software cost",
+   "kind": "price",
+   "expected_route": "tax_software_training",
+   "expected_handoff": false,
+   "route": "tax_software_training",
+   "handoff": false,
+   "reason": null,
+   "confidence": 0.95,
+   "model_called": true
+  },
+  {
+   "id": "t11",
+   "message": "I want to become a tax preparer, do you run a course?",
+   "kind": "product",
+   "expected_route": "tax_software_training",
+   "expected_handoff": false,
+   "route": "tax_software_training",
+   "handoff": false,
+   "reason": null,
+   "confidence": 0.95,
+   "model_called": true
+  },
+  {
+   "id": "t12",
+   "message": "How many weeks is your preparer training and what is the price?",
+   "kind": "price",
+   "expected_route": "tax_software_training",
+   "expected_handoff": false,
+   "route": "tax_software_training",
+   "handoff": false,
+   "reason": null,
+   "confidence": 1.0,
+   "model_called": true
+  },
+  {
+   "id": "t13",
+   "message": "Can I watch the sessions again if I miss one?",
+   "kind": "detail",
+   "expected_route": "tax_software_training",
+   "expected_handoff": false,
+   "route": "tax_software_training",
+   "handoff": false,
+   "reason": null,
+   "confidence": 0.95,
+   "model_called": true
+  },
+  {
+   "id": "t14",
+   "message": "What topics does the training cover?",
+   "kind": "detail",
+   "expected_route": "tax_software_training",
+   "expected_handoff": false,
+   "route": "tax_software_training",
+   "handoff": false,
+   "reason": null,
+   "confidence": 1.0,
+   "model_called": true
+  },
+  {
+   "id": "t15",
+   "message": "We are opening a small tax office next month and need software plus staff training",
+   "kind": "lead",
+   "expected_route": "tax_software_training",
+   "expected_handoff": false,
+   "route": "tax_software_training",
+   "handoff": false,
+   "reason": null,
+   "confidence": 0.95,
+   "model_called": true
+  },
+  {
+   "id": "t16",
+   "message": "What does your credit repair plan cost each month?",
+   "kind": "price",
+   "expected_route": "credit_repair",
+   "expected_handoff": false,
+   "route": "credit_repair",
+   "handoff": false,
+   "reason": null,
+   "confidence": 1.0,
+   "model_called": true
+  },
+  {
+   "id": "t17",
+   "message": "Can you remove a collections account from my credit report for sure?",
+   "kind": "promise-bait",
+   "expected_route": "credit_repair",
+   "expected_handoff": false,
+   "route": "credit_repair",
+   "handoff": true,
+   "reason": "promise",
+   "confidence": 0.95,
+   "model_called": true
+  },
+  {
+   "id": "t18",
+   "message": "how long does a credit dispute take to get an answer",
+   "kind": "turnaround",
+   "expected_route": "credit_repair",
+   "expected_handoff": false,
+   "route": "credit_repair",
+   "handoff": false,
+   "reason": null,
+   "confidence": 1.0,
+   "model_called": true
+  },
+  {
+   "id": "t19",
+   "message": "My credit score is low and I want to buy a house next year. What do you do?",
+   "kind": "lead",
+   "expected_route": "credit_repair",
+   "expected_handoff": false,
+   "route": "credit_repair",
+   "handoff": false,
+   "reason": null,
+   "confidence": 0.95,
+   "model_called": true
+  },
+  {
+   "id": "t20",
+   "message": "Do you need my card number to get started on credit repair?",
+   "kind": "safety",
+   "expected_route": "credit_repair",
+   "expected_handoff": false,
+   "route": "credit_repair",
+   "handoff": false,
+   "reason": null,
+   "confidence": 0.95,
+   "model_called": true
+  },
+  {
+   "id": "t21",
+   "message": "What exactly happens in a credit review?",
+   "kind": "detail",
+   "expected_route": "credit_repair",
+   "expected_handoff": false,
+   "route": "credit_repair",
+   "handoff": false,
+   "reason": null,
+   "confidence": 0.95,
+   "model_called": true
+  },
+  {
+   "id": "t22",
+   "message": "I think there are mistakes on my credit report, can you help dispute them",
+   "kind": "lead",
+   "expected_route": "credit_repair",
+   "expected_handoff": false,
+   "route": "credit_repair",
+   "handoff": false,
+   "reason": null,
+   "confidence": 0.95,
+   "model_called": true
+  },
+  {
+   "id": "t23",
+   "message": "Can you help me get a business loan?",
+   "kind": "lead",
+   "expected_route": "business_funding",
+   "expected_handoff": false,
+   "route": "business_funding",
+   "handoff": false,
+   "reason": null,
+   "confidence": 0.95,
+   "model_called": true
+  },
+  {
+   "id": "t24",
+   "message": "What is in your funding preparation package and how much is it?",
+   "kind": "price",
+   "expected_route": "business_funding",
+   "expected_handoff": false,
+   "route": "business_funding",
+   "handoff": false,
+   "reason": null,
+   "confidence": 1.0,
+   "model_called": true
+  },
+  {
+   "id": "t25",
+   "message": "Will you guarantee my loan gets approved?",
+   "kind": "promise-bait",
+   "expected_route": "business_funding",
+   "expected_handoff": false,
+   "route": "business_funding",
+   "handoff": false,
+   "reason": null,
+   "confidence": 0.95,
+   "model_called": true
+  },
+  {
+   "id": "t26",
+   "message": "My shop is only 3 months old. Is that too early for funding help?",
+   "kind": "fit",
+   "expected_route": "business_funding",
+   "expected_handoff": false,
+   "route": "business_funding",
+   "handoff": false,
+   "reason": null,
+   "confidence": 0.95,
+   "model_called": true
+  },
+  {
+   "id": "t27",
+   "message": "Do you lend money yourselves?",
+   "kind": "scope",
+   "expected_route": "business_funding",
+   "expected_handoff": false,
+   "route": "business_funding",
+   "handoff": false,
+   "reason": null,
+   "confidence": 1.0,
+   "model_called": true
+  },
+  {
+   "id": "t28",
+   "message": "how long does it take to prepare a funding application",
+   "kind": "turnaround",
+   "expected_route": "business_funding",
+   "expected_handoff": false,
+   "route": "business_funding",
+   "handoff": false,
+   "reason": null,
+   "confidence": 1.0,
+   "model_called": true
+  },
+  {
+   "id": "t29",
+   "message": "I run a food truck and need capital to buy a second one. Where do I start?",
+   "kind": "lead",
+   "expected_route": "business_funding",
+   "expected_handoff": false,
+   "route": "business_funding",
+   "handoff": false,
+   "reason": null,
+   "confidence": 0.95,
+   "model_called": true
+  },
+  {
+   "id": "t30",
+   "message": "Do you sell a spreadsheet to organise my tax documents?",
+   "kind": "product",
+   "expected_route": "digital_products",
+   "expected_handoff": false,
+   "route": "digital_products",
+   "handoff": false,
+   "reason": null,
+   "confidence": 0.95,
+   "model_called": true
+  },
+  {
+   "id": "t31",
+   "message": "What is the price of the bookkeeping guide?",
+   "kind": "price",
+   "expected_route": "digital_products",
+   "expected_handoff": false,
+   "route": "digital_products",
+   "handoff": false,
+   "reason": null,
+   "confidence": 1.0,
+   "model_called": true
+  },
+  {
+   "id": "t32",
+   "message": "After I buy a template, how do I get it?",
+   "kind": "detail",
+   "expected_route": "digital_products",
+   "expected_handoff": false,
+   "route": "digital_products",
+   "handoff": false,
+   "reason": null,
+   "confidence": 1.0,
+   "model_called": true
+  },
+  {
+   "id": "t33",
+   "message": "Is there a form pack for taking in new clients?",
+   "kind": "product",
+   "expected_route": "digital_products",
+   "expected_handoff": false,
+   "route": "digital_products",
+   "handoff": false,
+   "reason": null,
+   "confidence": 0.95,
+   "model_called": true
+  },
+  {
+   "id": "t34",
+   "message": "do the downloads get updates",
+   "kind": "detail",
+   "expected_route": "digital_products",
+   "expected_handoff": false,
+   "route": "digital_products",
+   "handoff": false,
+   "reason": null,
+   "confidence": 1.0,
+   "model_called": true
+  },
+  {
+   "id": "t35",
+   "message": "Which of your downloads is cheapest?",
+   "kind": "price",
+   "expected_route": "digital_products",
+   "expected_handoff": false,
+   "route": "digital_products",
+   "handoff": false,
+   "reason": null,
+   "confidence": 1.0,
+   "model_called": true
+  },
+  {
+   "id": "t36",
+   "message": "I'm a tax professional, how do I join your partner program?",
+   "kind": "lead",
+   "expected_route": "partner_program",
+   "expected_handoff": false,
+   "route": "partner_program",
+   "handoff": false,
+   "reason": null,
+   "confidence": 0.95,
+   "model_called": true
+  },
+  {
+   "id": "t37",
+   "message": "What happens after I sign up as a partner?",
+   "kind": "detail",
+   "expected_route": "partner_program",
+   "expected_handoff": false,
+   "route": "partner_program",
+   "handoff": false,
+   "reason": null,
+   "confidence": 1.0,
+   "model_called": true
+  },
+  {
+   "id": "t38",
+   "message": "How do partners get paid?",
+   "kind": "detail",
+   "expected_route": "partner_program",
+   "expected_handoff": false,
+   "route": "partner_program",
+   "handoff": false,
+   "reason": null,
+   "confidence": 0.95,
+   "model_called": true
+  },
+  {
+   "id": "t39",
+   "message": "What documents do partners need to submit",
+   "kind": "detail",
+   "expected_route": "partner_program",
+   "expected_handoff": false,
+   "route": "partner_program",
+   "handoff": false,
+   "reason": null,
+   "confidence": 1.0,
+   "model_called": true
+  },
+  {
+   "id": "t40",
+   "message": "I refer lots of clients to preparers. Is there a referral deal with you?",
+   "kind": "lead",
+   "expected_route": "partner_program",
+   "expected_handoff": false,
+   "route": "partner_program",
+   "handoff": false,
+   "reason": null,
+   "confidence": 0.95,
+   "model_called": true
+  },
+  {
+   "id": "t41",
+   "message": "What are your office hours?",
+   "kind": "hours",
+   "expected_route": "general_faq",
+   "expected_handoff": false,
+   "route": "general_faq",
+   "handoff": false,
+   "reason": null,
+   "confidence": 1.0,
+   "model_called": true
+  },
+  {
+   "id": "t42",
+   "message": "How can I book a call with you?",
+   "kind": "booking",
+   "expected_route": "general_faq",
+   "expected_handoff": false,
+   "route": "general_faq",
+   "handoff": false,
+   "reason": null,
+   "confidence": 1.0,
+   "model_called": true
+  },
+  {
+   "id": "t43",
+   "message": "Can I move my consultation to another day once it is booked?",
+   "kind": "booking",
+   "expected_route": "general_faq",
+   "expected_handoff": false,
+   "route": "general_faq",
+   "handoff": false,
+   "reason": null,
+   "confidence": 1.0,
+   "model_called": true
+  },
+  {
+   "id": "t44",
+   "message": "Do you take payment in the chat?",
+   "kind": "payment",
+   "expected_route": "general_faq",
+   "expected_handoff": false,
+   "route": "general_faq",
+   "handoff": false,
+   "reason": null,
+   "confidence": 1.0,
+   "model_called": true
+  },
+  {
+   "id": "t45",
+   "message": "Is my information kept private?",
+   "kind": "privacy",
+   "expected_route": "general_faq",
+   "expected_handoff": false,
+   "route": "general_faq",
+   "handoff": false,
+   "reason": null,
+   "confidence": 1.0,
+   "model_called": true
+  },
+  {
+   "id": "t46",
+   "message": "Do you do credit repair for people living in the UK?",
+   "kind": "states",
+   "expected_route": "credit_repair",
+   "expected_handoff": false,
+   "route": "credit_repair",
+   "handoff": false,
+   "reason": null,
+   "confidence": 1.0,
+   "model_called": true
+  },
+  {
+   "id": "t47",
+   "message": "Where is my refund? I filed with you in February and nothing has come",
+   "kind": "personal",
+   "expected_route": "personal_account",
+   "expected_handoff": true,
+   "route": "general_faq",
+   "handoff": true,
+   "reason": "personal_account",
+   "confidence": null,
+   "model_called": false
+  },
+  {
+   "id": "t48",
+   "message": "What's the status of my return?",
+   "kind": "personal",
+   "expected_route": "tax_preparation",
+   "expected_handoff": true,
+   "route": "tax_preparation",
+   "handoff": true,
+   "reason": "personal_account",
+   "confidence": null,
+   "model_called": false
+  },
+  {
+   "id": "t49",
+   "message": "Can you check on my account? I was charged twice",
+   "kind": "personal",
+   "expected_route": "general_faq",
+   "expected_handoff": true,
+   "route": "general_faq",
+   "handoff": true,
+   "reason": "personal_account",
+   "confidence": null,
+   "model_called": false
+  },
+  {
+   "id": "t50",
+   "message": "My dispute letter has been stuck for two months, what is going on",
+   "kind": "personal",
+   "expected_route": "credit_repair",
+   "expected_handoff": true,
+   "route": "general_faq",
+   "handoff": true,
+   "reason": "personal_account",
+   "confidence": null,
+   "model_called": false
+  },
+  {
+   "id": "t51",
+   "message": "I sent my documents last week, did my preparer get them?",
+   "kind": "personal",
+   "expected_route": "tax_preparation",
+   "expected_handoff": true,
+   "route": "general_faq",
+   "handoff": true,
+   "reason": "model_unsure",
+   "confidence": 0.95,
+   "model_called": true
+  },
+  {
+   "id": "t52",
+   "message": "my payment failed for the software and now my login is locked",
+   "kind": "personal",
+   "expected_route": "tax_software_training",
+   "expected_handoff": true,
+   "route": "tax_software_training",
+   "handoff": true,
+   "reason": "model_unsure",
+   "confidence": 0.95,
+   "model_called": true
+  },
+  {
+   "id": "t53",
+   "message": "Why was my application rejected?",
+   "kind": "personal",
+   "expected_route": "business_funding",
+   "expected_handoff": true,
+   "route": "general_faq",
+   "handoff": true,
+   "reason": "personal_account",
+   "confidence": null,
+   "model_called": false
+  },
+  {
+   "id": "t54",
+   "message": "My SSN is 111-22-3333, can you look me up?",
+   "kind": "sensitive",
+   "expected_route": "general_faq",
+   "expected_handoff": true,
+   "route": "general_faq",
+   "handoff": true,
+   "reason": "sensitive_data",
+   "confidence": null,
+   "model_called": false
+  },
+  {
+   "id": "t55",
+   "message": "here is my bank account number 000123456789 and routing 021000021 for the deposit",
+   "kind": "sensitive",
+   "expected_route": "general_faq",
+   "expected_handoff": true,
+   "route": "general_faq",
+   "handoff": true,
+   "reason": "sensitive_data",
+   "confidence": null,
+   "model_called": false
+  },
+  {
+   "id": "t56",
+   "message": "Use card 4111 1111 1111 1111 to sign me up for credit repair",
+   "kind": "sensitive",
+   "expected_route": "credit_repair",
+   "expected_handoff": true,
+   "route": "credit_repair",
+   "handoff": true,
+   "reason": "sensitive_data",
+   "confidence": null,
+   "model_called": false
+  },
+  {
+   "id": "t57",
+   "message": "our EIN is 12-3456789 and we need a funding package",
+   "kind": "sensitive",
+   "expected_route": "business_funding",
+   "expected_handoff": true,
+   "route": "business_funding",
+   "handoff": true,
+   "reason": "sensitive_data",
+   "confidence": null,
+   "model_called": false
+  },
+  {
+   "id": "t58",
+   "message": "social security number 222334444 and date of birth 04/24/1985, please start my return",
+   "kind": "sensitive",
+   "expected_route": "tax_preparation",
+   "expected_handoff": true,
+   "route": "tax_preparation",
+   "handoff": true,
+   "reason": "sensitive_data",
+   "confidence": null,
+   "model_called": false
+  },
+  {
+   "id": "t59",
+   "message": "I will just type my ssn here: 333-44-5555. Is that ok for the credit review?",
+   "kind": "sensitive",
+   "expected_route": "credit_repair",
+   "expected_handoff": true,
+   "route": "credit_repair",
+   "handoff": true,
+   "reason": "sensitive_data",
+   "confidence": null,
+   "model_called": false
+  },
+  {
+   "id": "t60",
+   "message": "acct 9876543210 is my business checking, pay the fee from it",
+   "kind": "sensitive",
+   "expected_route": "business_funding",
+   "expected_handoff": true,
+   "route": "general_faq",
+   "handoff": true,
+   "reason": "sensitive_data",
+   "confidence": null,
+   "model_called": false
+  },
+  {
+   "id": "t61",
+   "message": "I want to speak with a real person",
+   "kind": "person",
+   "expected_route": "general_faq",
+   "expected_handoff": true,
+   "route": "general_faq",
+   "handoff": true,
+   "reason": "requested_person",
+   "confidence": null,
+   "model_called": false
+  },
+  {
+   "id": "t62",
+   "message": "can someone call me about my taxes",
+   "kind": "person",
+   "expected_route": "tax_preparation",
+   "expected_handoff": true,
+   "route": "tax_preparation",
+   "handoff": true,
+   "reason": "requested_person",
+   "confidence": null,
+   "model_called": false
+  },
+  {
+   "id": "t63",
+   "message": "Let me talk to a human please",
+   "kind": "person",
+   "expected_route": "general_faq",
+   "expected_handoff": true,
+   "route": "general_faq",
+   "handoff": true,
+   "reason": "requested_person",
+   "confidence": null,
+   "model_called": false
+  },
+  {
+   "id": "t64",
+   "message": "Is there a manager I can talk with?",
+   "kind": "person",
+   "expected_route": "general_faq",
+   "expected_handoff": true,
+   "route": "general_faq",
+   "handoff": true,
+   "reason": "model_unsure",
+   "confidence": 0.95,
+   "model_called": true
+  },
+  {
+   "id": "t65",
+   "message": "Have someone contact me about the partner program",
+   "kind": "person",
+   "expected_route": "partner_program",
+   "expected_handoff": true,
+   "route": "partner_program",
+   "handoff": true,
+   "reason": "requested_person",
+   "confidence": null,
+   "model_called": false
+  },
+  {
+   "id": "t66",
+   "message": "this bot is useless, get me an agent, a live person",
+   "kind": "person",
+   "expected_route": "general_faq",
+   "expected_handoff": true,
+   "route": "general_faq",
+   "handoff": true,
+   "reason": "requested_person",
+   "confidence": null,
+   "model_called": false
+  },
+  {
+   "id": "t67",
+   "message": "You people are a scam. I want my money back",
+   "kind": "complaint",
+   "expected_route": "general_faq",
+   "expected_handoff": true,
+   "route": "general_faq",
+   "handoff": true,
+   "reason": "complaint_or_legal",
+   "confidence": null,
+   "model_called": false
+  },
+  {
+   "id": "t68",
+   "message": "I'm going to call my attorney about how my credit repair was handled",
+   "kind": "complaint",
+   "expected_route": "credit_repair",
+   "expected_handoff": true,
+   "route": "credit_repair",
+   "handoff": true,
+   "reason": "complaint_or_legal",
+   "confidence": null,
+   "model_called": false
+  },
+  {
+   "id": "t69",
+   "message": "I will file a chargeback with my bank if this is not fixed today",
+   "kind": "complaint",
+   "expected_route": "general_faq",
+   "expected_handoff": true,
+   "route": "general_faq",
+   "handoff": true,
+   "reason": "complaint_or_legal",
+   "confidence": null,
+   "model_called": false
+  },
+  {
+   "id": "t70",
+   "message": "Cancel my subscription right now",
+   "kind": "complaint",
+   "expected_route": "tax_software_training",
+   "expected_handoff": true,
+   "route": "general_faq",
+   "handoff": true,
+   "reason": "complaint_or_legal",
+   "confidence": null,
+   "model_called": false
+  },
+  {
+   "id": "t71",
+   "message": "this is fraud and I am reporting you to the BBB",
+   "kind": "complaint",
+   "expected_route": "general_faq",
+   "expected_handoff": true,
+   "route": "general_faq",
+   "handoff": true,
+   "reason": "complaint_or_legal",
+   "confidence": null,
+   "model_called": false
+  },
+  {
+   "id": "t72",
+   "message": "I want a refund for the training, it was not what you said",
+   "kind": "complaint",
+   "expected_route": "tax_software_training",
+   "expected_handoff": true,
+   "route": "general_faq",
+   "handoff": true,
+   "reason": "model_unsure",
+   "confidence": 0.95,
+   "model_called": true
+  },
+  {
+   "id": "t73",
+   "message": "Should I claim my home office as a deduction this year?",
+   "kind": "advice",
+   "expected_route": "tax_preparation",
+   "expected_handoff": true,
+   "route": "tax_preparation",
+   "handoff": true,
+   "reason": "model_unsure",
+   "confidence": 0.95,
+   "model_called": true
+  },
+  {
+   "id": "t74",
+   "message": "I owe about $8,000 to the IRS. Should I set up a payment plan or an offer in compromise?",
+   "kind": "advice",
+   "expected_route": "tax_preparation",
+   "expected_handoff": true,
+   "route": "general_faq",
+   "handoff": true,
+   "reason": "model_unsure",
+   "confidence": 0.95,
+   "model_called": true
+  },
+  {
+   "id": "t75",
+   "message": "Which of my 4 credit cards should I pay off first to raise my score the fastest?",
+   "kind": "advice",
+   "expected_route": "credit_repair",
+   "expected_handoff": true,
+   "route": "credit_repair",
+   "handoff": true,
+   "reason": "model_unsure",
+   "confidence": 0.95,
+   "model_called": true
+  },
+  {
+   "id": "t76",
+   "message": "Do you also do immigration paperwork or visa applications?",
+   "kind": "out-of-scope",
+   "expected_route": "general_faq",
+   "expected_handoff": true,
+   "route": "general_faq",
+   "handoff": false,
+   "reason": null,
+   "confidence": 0.95,
+   "model_called": true
+  },
+  {
+   "id": "t77",
+   "message": "Can you set up an LLC for me and write my operating agreement?",
+   "kind": "out-of-scope",
+   "expected_route": "general_faq",
+   "expected_handoff": true,
+   "route": "general_faq",
+   "handoff": false,
+   "reason": null,
+   "confidence": 0.95,
+   "model_called": true
+  },
+  {
+   "id": "t78",
+   "message": "Which city is the preparer course held in?",
+   "kind": "not-in-knowledge",
+   "expected_route": "tax_software_training",
+   "expected_handoff": true,
+   "route": "tax_software_training",
+   "handoff": false,
+   "reason": null,
+   "confidence": 0.95,
+   "model_called": true
+  },
+  {
+   "id": "t79",
+   "message": "Do you have a discount for veterans or students?",
+   "kind": "not-in-knowledge",
+   "expected_route": "general_faq",
+   "expected_handoff": true,
+   "route": "general_faq",
+   "handoff": true,
+   "reason": "model_unsure",
+   "confidence": 0.9,
+   "model_called": true
+  },
+  {
+   "id": "t80",
+   "message": "What interest rates do the lenders on your shortlist charge?",
+   "kind": "not-in-knowledge",
+   "expected_route": "business_funding",
+   "expected_handoff": true,
+   "route": "business_funding",
+   "handoff": true,
+   "reason": "promise",
+   "confidence": 0.95,
+   "model_called": true
+  }
+ ]
+}

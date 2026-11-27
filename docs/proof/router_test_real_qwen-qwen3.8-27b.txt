@@ -1,0 +1,19 @@
+Lead router evaluation: set=test cases=80 classifier=real model qwen/qwen3.8-27b
+run at 2026-11-27T18:34:36+00:00
+routing accuracy on answerable cases: 46/46 = 1.000 (95% CI 0.923 to 1.000)
+answered correctly with no handoff:   45/46 = 0.978 (95% CI 0.887 to 0.996)
+handoff precision:                    31/32 = 0.969 (95% CI 0.843 to 0.994)
+handoff recall:                       31/34 = 0.912 (95% CI 0.770 to 0.970)
+false handoffs on answerable cases:   1/46 = 0.022 (95% CI 0.004 to 0.113)
+confusion: {'tp': 31, 'fp': 1, 'fn': 3, 'tn': 45}
+handoff recall by kind:
+  advice             3/3 = 1.000 (95% CI 0.438 to 1.000)
+  complaint          6/6 = 1.000 (95% CI 0.610 to 1.000)
+  not-in-knowledge   2/3 = 0.667 (95% CI 0.208 to 0.939)
+  out-of-scope       0/2 = 0.000 (95% CI 0.000 to 0.658)
+  person             6/6 = 1.000 (95% CI 0.610 to 1.000)
+  personal           7/7 = 1.000 (95% CI 0.646 to 1.000)
+  sensitive          7/7 = 1.000 (95% CI 0.646 to 1.000)
+masking: 7 cases carried a sensitive value; prompts with a raw value: 0; audit log lines with a raw value: 0
+model calls: 58 of 80 cases (the rest were handed off by the code floor before the model)
+model errors (a call that failed and was handed off, counted as handoffs above): 0

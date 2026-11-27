@@ -202,7 +202,7 @@ def main() -> int:
     wait_for("completion emails", lambda: [m for m in mails_to(a_email) if m["Subject"].startswith("You are all set")] and [m for m in mails_to(team) if m["Subject"].startswith("Onboarding complete")])
     count_before = len(mails_to(a_email))
     skip_days(10)
-    time.sleep(35)  # fixed-wait-ok: a negative check has no event to poll; the 15 s schedule must run twice and send nothing
+    time.sleep(35)  # authoring-ok: a negative check has no event to poll; the 15 s schedule must run twice and send nothing
     check("no reminder after completion", len(mails_to(a_email)) == count_before)
 
     say("\n7. A partner who never answers is flagged to the team once")

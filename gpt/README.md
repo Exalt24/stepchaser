@@ -29,4 +29,13 @@ python scripts/run_gpt_eval.py                    # scores all 40 cases; needs L
 6. Try each starter and the cases in `eval/cases.jsonl` by hand. ChatGPT retrieves from the uploaded files instead of reading them whole, so its answers can differ from the scores here.
 7. Keep it private or share it with the team only. The knowledge files describe a sample business and should be replaced with the real procedures first.
 
-No custom GPT was published from this repository.
+## Run it as a ChatGPT Project (free plan)
+
+OpenAI no longer lets a personal account create or publish a custom GPT (its help page on GPT retirement points to Projects instead), so the same package was loaded into a ChatGPT Project on a free account on 2026-11-28. The Instructions field holds `instructions.md` plus the text of `../kb/faq.md`, because a free Project holds five files; the other five knowledge files were uploaded as sources.
+
+Two of the four starters were asked in the Project and answered from the uploaded files:
+
+- "What do we send a new tax partner, and when do we follow up?" gave the day-one welcome email, the five items, a reminder every 2 days, at most 3 reminders and then a stalled-partner alert ([screenshot](../docs/test-runs/chatgpt-project-onboarding-answer.png)).
+- "A client pasted their account details in a message. What do I do?" gave the delete, do-not-repeat and secure-upload steps and a draft message with a placeholder link, and said a team member handles the client's own file ([screenshot](../docs/test-runs/chatgpt-project-sensitive-info-answer.png)).
+
+No custom GPT was published from this repository; the Project is private.
